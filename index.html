@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chronicles of Aetheria | AI-Generated Adventure RPG</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Cinzel:wght@600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="logo">
+        <span class="logo-icon">⚔️</span>
+        <span class="logo-title">Chronicles of Aetheria</span>
+        <span class="badge">GitHub Copilot Edition</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#game-section" class="active">Play Game</a>
+        <a href="#about-section">About</a>
+        <a href="#copilot-section">Copilot Workflow</a>
+        <a href="https://github.com/anshvarshney1502/Use-GitHub-Copilot-to-Build-a-Simple-Application" target="_blank" class="github-btn">
+          <svg height="16" width="16" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+          </svg>
+          Repository
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-container">
+    <!-- Game Section -->
+    <section id="game-section" class="game-wrapper">
+      <!-- Player HUD -->
+      <div class="hud-panel" id="hud-panel">
+        <div class="player-profile">
+          <div class="avatar" id="player-avatar">🧙</div>
+          <div class="player-info">
+            <h3 id="hud-name">Aric</h3>
+            <span class="class-tag" id="hud-class">Warrior</span>
+          </div>
+        </div>
+
+        <div class="stats-group">
+          <div class="stat-item">
+            <div class="stat-label"><span>Health</span><span id="hp-text">100/100</span></div>
+            <div class="progress-bar"><div class="fill hp-fill" id="hp-bar" style="width: 100%;"></div></div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label"><span>Mana</span><span id="mana-text">40/40</span></div>
+            <div class="progress-bar"><div class="fill mana-fill" id="mana-bar" style="width: 100%;"></div></div>
+          </div>
+        </div>
+
+        <div class="meta-stats">
+          <div class="meta-item"><span class="icon">💰</span> <span id="gold-text">25 Gold</span></div>
+          <div class="meta-item"><span class="icon">🎒</span> <span id="inventory-count">2 Items</span></div>
+        </div>
+
+        <div class="inventory-section">
+          <h4>Backpack</h4>
+          <div id="inventory-list" class="inventory-tags"></div>
+        </div>
+
+        <div class="hud-actions">
+          <button id="btn-save" class="btn-subtle">💾 Save</button>
+          <button id="btn-load" class="btn-subtle">📂 Load</button>
+          <button id="btn-restart" class="btn-subtle">🔄 Restart</button>
+        </div>
+      </div>
+
+      <!-- Terminal / Game Narrative Window -->
+      <div class="terminal-container">
+        <div class="terminal-bar">
+          <div class="traffic-lights">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+          <div class="terminal-title">chronicles-cli — session@copilot</div>
+          <div class="terminal-theme-badge">Interactive Cybertantasy</div>
+        </div>
+
+        <div class="terminal-body" id="terminal-body">
+          <div class="ascii-art" id="ascii-art">
+   ⚔️  THE FORGOTTEN SANCTUM: AN INTERACTIVE QUEST  ⚔️
+          </div>
+          <h2 id="node-title" class="story-title">Welcome, Traveler</h2>
+          <p id="story-text" class="story-content">
+            Step forward into an interactive story generated with GitHub Copilot prompt engineering.
+            Choose your character class to begin.
+          </p>
+
+          <div id="notification-box" class="notification-box hidden"></div>
+
+          <!-- Combat Container -->
+          <div id="combat-container" class="combat-card hidden">
+            <div class="combat-header">
+              <span class="enemy-icon">🐉</span>
+              <div>
+                <h4 id="combat-enemy-name">Obsidian Wyrmling</h4>
+                <div class="progress-bar"><div class="fill enemy-hp-fill" id="enemy-hp-bar" style="width: 100%;"></div></div>
+                <div class="combat-sub" id="enemy-hp-text">80 / 80 HP</div>
+              </div>
+            </div>
+            <div class="combat-actions">
+              <button class="combat-btn" onclick="game.combatAction('attack')">⚔️ Strike</button>
+              <button class="combat-btn" onclick="game.combatAction('spell')">🔮 Cast Spell (15 MP)</button>
+              <button class="combat-btn" onclick="game.combatAction('potion')">🧪 Health Potion</button>
+              <button class="combat-btn" onclick="game.combatAction('flee')">💨 Flee</button>
+            </div>
+          </div>
+
+          <!-- Dynamic Choice Buttons -->
+          <div id="choices-container" class="choices-grid"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about-section" class="info-section">
+      <div class="section-card">
+        <h2>About This Project</h2>
+        <p>
+          This project was developed for the <strong>MLH Global Hack Week</strong> challenge: <em>Use GitHub Copilot to Build a Simple Application</em>.
+          It implements a complete dual-architecture project:
+        </p>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feat-icon">🐍</div>
+            <h3>Python CLI Engine</h3>
+            <p>A full terminal-based Choose-Your-Own-Adventure game with ANSI colored outputs, d20 dice checks, turn-based combat, and JSON save/load state.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feat-icon">🌐</div>
+            <h3>Modern Web Interface</h3>
+            <p>An interactive browser version equipped with real-time HUD status bars, typewriter text animation, inventory management, and responsive UI.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feat-icon">🤖</div>
+            <h3>GitHub Copilot Driven</h3>
+            <p>Demonstrates effective prompt engineering workflows using GitHub Copilot to design game loops, state machines, unit tests, and accessible interfaces.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Copilot Workflow Section -->
+    <section id="copilot-section" class="info-section">
+      <div class="section-card">
+        <h2>GitHub Copilot Prompt Workflow</h2>
+        <div class="prompt-step">
+          <span class="step-num">1</span>
+          <div>
+            <h4>Architecture & Data Model Prompt</h4>
+            <code>"Create a Python dataclass structure for a text RPG including Player (HP, Mana, Gold, Inventory), StoryNode with choices, and dynamic skill checks."</code>
+          </div>
+        </div>
+        <div class="prompt-step">
+          <span class="step-num">2</span>
+          <div>
+            <h4>Branching Logic & Dice Engine</h4>
+            <code>"Implement a d20 skill check system that factors in player Agility, Strength, or Intelligence and routes to success or failure story nodes."</code>
+          </div>
+        </div>
+        <div class="prompt-step">
+          <span class="step-num">3</span>
+          <div>
+            <h4>Unit Testing & Verification</h4>
+            <code>"Generate unittest test cases verifying node graph integrity, inventory state changes, healing bounds, and JSON save/load serialization."</code>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p>Crafted with ❤️ by <a href="https://github.com/anshvarshney1502" target="_blank">@anshvarshney1502</a> for MLH Global Hack Week • Powered by GitHub Copilot</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
